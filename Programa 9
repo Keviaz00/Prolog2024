@@ -1,0 +1,10 @@
+int EulerTotient(int n)
+{
+    int result = n;
+    List<int> primeFactors = PrimeFactors(n).Distinct().ToList();
+    foreach (int p in primeFactors)
+    {
+        result -= result / p;
+    }
+    return result;
+}
