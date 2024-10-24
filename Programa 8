@@ -1,0 +1,13 @@
+List<int> PrimeFactors(int n)
+{
+    List<int> factors = new List<int>();
+    for (int i = 2; i <= n; i++)
+    {
+        while (n % i == 0)
+        {
+            factors.Add(i);
+            n /= i;
+        }
+    }
+    return factors;
+}
