@@ -1,0 +1,41 @@
+class GraphEulerianCycle
+{
+    private List<int>[] adj;
+
+    public GraphEulerianCycle(int vertices)
+    {
+        adj = new List<int>[vertices];
+        for (int i = 0; i < vertices; i++)
+        {
+            adj[i] = new List<int>();
+        }
+    }
+
+    public void AddEdge(int u, int v)
+    {
+        adj[u].Add(v);
+        adj[v].Add(u); // Para un grafo no dirigido
+    }
+
+    public void FindEulerianCycle()
+    {
+        if (!IsEulerian())
+        {
+            Console.WriteLine("El grafo no tiene un ciclo euleriano.");
+            return;
+        }
+        // Implementación del ciclo euleriano aquí
+        Console.WriteLine("El grafo tiene un ciclo euleriano.");
+    }
+
+    private bool IsEulerian()
+    {
+        int oddDegreeVertices = 0;
+        for (int i = 0; i < adj.Length; i++)
+        {
+            if (adj[i].Count % 2 != 0)
+                oddDegreeVertices++;
+        }
+        return oddDegreeVertices == 0;
+    }
+}
