@@ -1,0 +1,22 @@
+using System;
+
+public class Fibonacci
+{
+    // Genera el n-ésimo número de la secuencia de Fibonacci
+    public static int FibonacciRecursivo(int n)
+    {
+        if (n <= 0) return 0; // Caso base: F(0) = 0
+        if (n == 1) return 1; // Caso base: F(1) = 1
+        return FibonacciRecursivo(n - 1) + FibonacciRecursivo(n - 2); // F(n) = F(n-1) + F(n-2)
+    }
+
+    // Ejemplo de uso
+    public static void Main()
+    {
+        int n = 10; // Número de términos de Fibonacci a generar
+        for (int i = 0; i <= n; i++)
+        {
+            Console.WriteLine($"Fibonacci({i}) = {FibonacciRecursivo(i)}"); // Imprime la secuencia de Fibonacci
+        }
+    }
+}
