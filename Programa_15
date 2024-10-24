@@ -1,0 +1,70 @@
+class GraphDijkstra
+{
+    private List<Tuple<int, int>>[] adj;
+
+    public GraphDijkstra(int vertices)
+    {
+        adj = new List<Tuple<int, int>>[vertices];
+        for (int i = 0; i < vertices; i++)
+        {
+            adj[i] = new List<Tuple<int, int>>();
+        }
+    }
+
+    public void AddEdge(int u, int v, int weight)
+    {
+        adj[u].Add(new Tuple<int, int>(v, weight));
+        adj[v].Add(new Tuple<int, int>(u, weight)); // Para un grafo no dirigido
+    }
+
+    public void Dijkstra(int start)
+    {
+        int[] dist = new int[adj.Length];
+        bool[] visited = new bool[adj.Length];
+        for (int i = 0; i < dist.Length; i++) dist[i] = int.MaxValue;
+        dist[start] = 0;
+
+        for (int count = 0; count < adj.Length - 1; count++)
+        {
+            int u = MinDistance(dist, visited);
+            visited[u] = true;
+
+            foreach (var edge in adj[u])
+            {
+                int v = edge.Item1;
+                int weight = edge.Item2;
+                if (!visited[v] && dist[u] != int.MaxValue && dist[u] + weight < dist[v])
+                {
+                    dist[v] = dist[u] + weight;
+                }
+            }
+        }
+
+        PrintSolution(dist);
+    }
+
+    private int MinDistance(int[] dist, bool[] visited)
+    {
+        int min = int.MaxValue;
+        int minIndex = -1;
+
+        for (int v = 0; v < dist.Length; v++)
+        {
+            if (!visited[v] && dist[v] <= min)
+            {
+                min = dist[v];
+                minIndex = v;
+            }
+        }
+        return minIndex;
+    }
+
+    private void PrintSolution(int[] dist)
+    {
+        Console.WriteLine("Distancias desde el nodo de inicio:");
+        for (int i = 0; i < dist.Length; i++)
+        {
+            Console.WriteLine($"Distancia a {i}: {dist[i]}");
+        }
+    }
+}
