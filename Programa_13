@@ -1,0 +1,31 @@
+class MultiwayTree
+{
+    public class Node
+    {
+        public int Value;
+        public List<Node> Children;
+
+        public Node(int value)
+        {
+            Value = value;
+            Children = new List<Node>();
+        }
+    }
+
+    public int CalculateInternalPathLength(Node root)
+    {
+        return IPLHelper(root, 0);
+    }
+
+    private int IPLHelper(Node node, int depth)
+    {
+        if (node == null) return 0;
+
+        int totalLength = depth; // Sumar la profundidad del nodo actual
+        foreach (var child in node.Children)
+        {
+            totalLength += IPLHelper(child, depth + 1);
+        }
+        return totalLength;
+    }
+}
