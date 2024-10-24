@@ -1,0 +1,46 @@
+class GraphGeneratorTree
+{
+    private List<int>[] adj;
+
+    public GraphGeneratorTree(int vertices)
+    {
+        adj = new List<int>[vertices];
+        for (int i = 0; i < vertices; i++)
+        {
+            adj[i] = new List<int>();
+        }
+    }
+
+    public void AddEdge(int u, int v)
+    {
+        adj[u].Add(v);
+        adj[v].Add(u); // Para un grafo no dirigido
+    }
+
+    public List<List<int>> GenerateTrees()
+    {
+        var trees = new List<List<int>>();
+        var visited = new bool[adj.Length];
+        var tree = new List<int>();
+        GenerateTreesUtil(0, visited, tree, trees);
+        return trees;
+    }
+
+    private void GenerateTreesUtil(int current, bool[] visited, List<int> tree, List<List<int>> trees)
+    {
+        visited[current] = true;
+        tree.Add(current);
+
+        foreach (var neighbor in adj[current])
+        {
+            if (!visited[neighbor])
+            {
+                GenerateTreesUtil(neighbor, visited, tree, trees);
+            }
+        }
+
+        trees.Add(new List<int>(tree));
+        tree.RemoveAt(tree.Count - 1);
+        visited[current] = false;
+    }
+}
