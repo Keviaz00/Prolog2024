@@ -1,0 +1,63 @@
+class GraphFloydWarshall
+{
+    private int V;
+    private int[,] dist;
+
+    public GraphFloydWarshall(int v)
+    {
+        V = v;
+        dist = new int[V, V];
+
+        for (int i = 0; i < V; i++)
+        {
+            for (int j = 0; j < V; j++)
+            {
+                dist[i, j] = i == j ? 0 : int.MaxValue;
+            }
+        }
+    }
+
+    public void AddEdge(int u, int v, int weight)
+    {
+        dist[u, v] = weight;
+    }
+
+    public void FloydWarshall()
+    {
+        for (int k = 0; k < V; k++)
+        {
+            for (int i = 0; i < V; i++)
+            {
+                for (int j = 0; j < V; j++)
+                {
+                    if (dist[i, k] != int.MaxValue && dist[k, j] != int.MaxValue && dist[i, j] > dist[i, k] + dist[k, j])
+                    {
+                        dist[i, j] = dist[i, k] + dist[k, j];
+                    }
+                }
+            }
+        }
+
+        PrintSolution();
+    }
+
+    private void PrintSolution()
+    {
+        Console.WriteLine("Distancias más cortas entre todos los pares:");
+        for (int i = 0; i < V; i++)
+        {
+            for (int j = 0; j < V; j++)
+            {
+                if (dist[i, j] == int.MaxValue)
+                {
+                    Console.Write("INF ");
+                }
+                else
+                {
+                    Console.Write($"{dist[i, j]} ");
+                }
+            }
+            Console.WriteLine();
+        }
+    }
+}
