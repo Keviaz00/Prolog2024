@@ -1,0 +1,45 @@
+class GraphSimplePaths
+{
+    private List<int>[] adj;
+
+    public GraphSimplePaths(int vertices)
+    {
+        adj = new List<int>[vertices];
+        for (int i = 0; i < vertices; i++)
+        {
+            adj[i] = new List<int>();
+        }
+    }
+
+    public void AddEdge(int u, int v)
+    {
+        adj[u].Add(v);
+        adj[v].Add(u); // Para un grafo no dirigido
+    }
+
+    public int CountSimplePaths(int start, int end)
+    {
+        bool[] visited = new bool[adj.Length];
+        return CountSimplePathsUtil(start, end, visited);
+    }
+
+    private int CountSimplePathsUtil(int current, int end, bool[] visited)
+    {
+        if (current == end)
+            return 1;
+
+        visited[current] = true;
+        int pathCount = 0;
+
+        foreach (var neighbor in adj[current])
+        {
+            if (!visited[neighbor])
+            {
+                pathCount += CountSimplePathsUtil(neighbor, end, visited);
+            }
+        }
+
+        visited[current] = false;
+        return pathCount;
+    }
+}
