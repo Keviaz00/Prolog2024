@@ -1,0 +1,23 @@
+class BinarySearch
+{
+    public static int Search(int[] arr, int target)
+    {
+        int left = 0;
+        int right = arr.Length - 1;
+
+        while (left <= right)
+        {
+            int mid = left + (right - left) / 2;
+
+            if (arr[mid] == target)
+                return mid; // Retorna el índice si se encuentra el objetivo
+
+            if (arr[mid] < target)
+                left = mid + 1; // Busca en la mitad derecha
+            else
+                right = mid - 1; // Busca en la mitad izquierda
+        }
+
+        return -1; // Retorna -1 si no se encuentra el objetivo
+    }
+}
