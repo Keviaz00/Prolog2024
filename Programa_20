@@ -1,0 +1,39 @@
+class GraphDFS
+{
+    private List<int>[] adj;
+
+    public GraphDFS(int vertices)
+    {
+        adj = new List<int>[vertices];
+        for (int i = 0; i < vertices; i++)
+        {
+            adj[i] = new List<int>();
+        }
+    }
+
+    public void AddEdge(int u, int v)
+    {
+        adj[u].Add(v);
+        adj[v].Add(u); // Para un grafo no dirigido
+    }
+
+    public void DFS(int start)
+    {
+        bool[] visited = new bool[adj.Length];
+        DFSUtil(start, visited);
+    }
+
+    private void DFSUtil(int current, bool[] visited)
+    {
+        visited[current] = true;
+        Console.WriteLine($"Visitando nodo {current}");
+
+        foreach (var neighbor in adj[current])
+        {
+            if (!visited[neighbor])
+            {
+                DFSUtil(neighbor, visited);
+            }
+        }
+    }
+}
