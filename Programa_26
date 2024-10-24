@@ -1,0 +1,9 @@
+class StringReverser
+{
+    public static string Reverse(string str)
+    {
+        char[] charArray = str.ToCharArray(); // Convierte la cadena en un arreglo de caracteres
+        Array.Reverse(charArray); // Invierte el arreglo
+        return new string(charArray); // Convierte de nuevo el arreglo en una cadena
+    }
+}
