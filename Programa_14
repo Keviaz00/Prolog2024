@@ -1,0 +1,29 @@
+class GraphConversion
+{
+    public static List<KeyValuePair<int, List<int>>> EdgesToAdjList(List<Tuple<int, int>> edges)
+    {
+        var adjList = new Dictionary<int, List<int>>();
+
+        foreach (var edge in edges)
+        {
+            if (!adjList.ContainsKey(edge.Item1))
+            {
+                adjList[edge.Item1] = new List<int>();
+            }
+            if (!adjList.ContainsKey(edge.Item2))
+            {
+                adjList[edge.Item2] = new List<int>();
+            }
+
+            adjList[edge.Item1].Add(edge.Item2);
+            adjList[edge.Item2].Add(edge.Item1); // Para un grafo no dirigido
+        }
+
+        var result = new List<KeyValuePair<int, List<int>>>();
+        foreach (var item in adjList)
+        {
+            result.Add(new KeyValuePair<int, List<int>>(item.Key, item.Value));
+        }
+        return result;
+    }
+}
