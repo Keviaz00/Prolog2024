@@ -1,0 +1,24 @@
+using System;
+using System.Collections.Generic;
+
+public class SumarLista
+{
+    // Suma todos los elementos de una lista de enteros
+    public static int Sumar(List<int> lista)
+    {
+        int suma = 0;
+        foreach (int numero in lista)
+        {
+            suma += numero; // Sumar cada número a la suma total
+        }
+        return suma;
+    }
+
+    // Ejemplo de uso
+    public static void Main()
+    {
+        List<int> numeros = new List<int> { 1, 2, 3, 4, 5 }; // Lista de números
+        int resultado = Sumar(numeros);
+        Console.WriteLine($"La suma de la lista es: {resultado}"); // Imprime: La suma de la lista es: 15
+    }
+}
