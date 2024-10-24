@@ -1,0 +1,15 @@
+class CharCounter
+{
+    public static int CountOccurrences(string str, char c)
+    {
+        int count = 0;
+
+        foreach (char ch in str)
+        {
+            if (ch == c)
+                count++; // Incrementa el contador si hay una coincidencia
+        }
+
+        return count; // Retorna el número total de ocurrencias
+    }
+}
