@@ -1,0 +1,20 @@
+using System;
+
+public class CalcularFactorial
+{
+    // Calcula el factorial de un número de forma recursiva
+    public static int Factorial(int n)
+    {
+        if (n < 0) throw new ArgumentException("El número debe ser no negativo."); // Validación para números negativos
+        if (n == 0) return 1; // Base: 0! = 1
+        return n * Factorial(n - 1); // Llamada recursiva
+    }
+
+    // Ejemplo de uso
+    public static void Main()
+    {
+        int numero = 5; // Número a calcular el factorial
+        int resultado = Factorial(numero); // Llamada a la función Factorial
+        Console.WriteLine($"El factorial de {numero} es {resultado}."); // Imprime: El factorial de 5 es 120.
+    }
+}
