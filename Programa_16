@@ -1,0 +1,61 @@
+class GraphBellmanFord
+{
+    private int V;
+    private List<Tuple<int, Tuple<int, int>>> edges;
+
+    public GraphBellmanFord(int vertices)
+    {
+        V = vertices;
+        edges = new List<Tuple<int, Tuple<int, int>>>();
+    }
+
+    public void AddEdge(int u, int v, int weight)
+    {
+        edges.Add(new Tuple<int, Tuple<int, int>>(weight, new Tuple<int, int>(u, v)));
+    }
+
+    public void BellmanFord(int start)
+    {
+        int[] dist = new int[V];
+        for (int i = 0; i < V; i++) dist[i] = int.MaxValue;
+        dist[start] = 0;
+
+        for (int i = 1; i < V - 1; i++)
+        {
+            foreach (var edge in edges)
+            {
+                int u = edge.Item2.Item1;
+                int v = edge.Item2.Item2;
+                int weight = edge.Item1;
+                if (dist[u] != int.MaxValue && dist[u] + weight < dist[v])
+                {
+                    dist[v] = dist[u] + weight;
+                }
+            }
+        }
+
+        // Comprobar ciclos negativos
+        foreach (var edge in edges)
+        {
+            int u = edge.Item2.Item1;
+            int v = edge.Item2.Item2;
+            int weight = edge.Item1;
+            if (dist[u] != int.MaxValue && dist[u] + weight < dist[v])
+            {
+                Console.WriteLine("El grafo contiene un ciclo negativo.");
+                return;
+            }
+        }
+
+        PrintSolution(dist);
+    }
+
+    private void PrintSolution(int[] dist)
+    {
+        Console.WriteLine("Distancias desde el nodo de inicio:");
+        for (int i = 0; i < V; i++)
+        {
+            Console.WriteLine($"Distancia a {i}: {dist[i]}");
+        }
+    }
+}
