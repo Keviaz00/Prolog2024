@@ -1,0 +1,46 @@
+class GraphConnectedComponents
+{
+    private List<int>[] adj;
+
+    public GraphConnectedComponents(int vertices)
+    {
+        adj = new List<int>[vertices];
+        for (int i = 0; i < vertices; i++)
+        {
+            adj[i] = new List<int>();
+        }
+    }
+
+    public void AddEdge(int u, int v)
+    {
+        adj[u].Add(v);
+        adj[v].Add(u); // Para un grafo no dirigido
+    }
+
+    public void FindConnectedComponents()
+    {
+        bool[] visited = new bool[adj.Length];
+        for (int v = 0; v < adj.Length; v++)
+        {
+            if (!visited[v])
+            {
+                Console.WriteLine($"Componente conectado: {v}");
+                DFSUtil(v, visited);
+                Console.WriteLine();
+            }
+        }
+    }
+
+    private void DFSUtil(int current, bool[] visited)
+    {
+        visited[current] = true;
+
+        foreach (var neighbor in adj[current])
+        {
+            if (!visited[neighbor])
+            {
+                DFSUtil(neighbor, visited);
+            }
+        }
+    }
+}
