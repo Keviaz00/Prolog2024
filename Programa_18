@@ -1,0 +1,49 @@
+class GraphDirectedCycle
+{
+    private List<int>[] adj;
+
+    public GraphDirectedCycle(int vertices)
+    {
+        adj = new List<int>[vertices];
+        for (int i = 0; i < vertices; i++)
+        {
+            adj[i] = new List<int>();
+        }
+    }
+
+    public void AddEdge(int u, int v)
+    {
+        adj[u].Add(v);
+    }
+
+    public bool HasCycle()
+    {
+        bool[] visited = new bool[adj.Length];
+        bool[] recStack = new bool[adj.Length];
+
+        for (int i = 0; i < adj.Length; i++)
+        {
+            if (HasCycleUtil(i, visited, recStack))
+                return true;
+        }
+        return false;
+    }
+
+    private bool HasCycleUtil(int current, bool[] visited, bool[] recStack)
+    {
+        if (recStack[current]) return true;
+        if (visited[current]) return false;
+
+        visited[current] = true;
+        recStack[current] = true;
+
+        foreach (var neighbor in adj[current])
+        {
+            if (HasCycleUtil(neighbor, visited, recStack))
+                return true;
+        }
+
+        recStack[current] = false;
+        return false;
+    }
+}
